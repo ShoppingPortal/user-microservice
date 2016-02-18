@@ -34,7 +34,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements EmbeddedServle
 
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer container) {
-		container.setPort(8082);
+		//container.setPort(8082);
 	}
 	
 	@Bean
