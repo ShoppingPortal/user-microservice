@@ -11,7 +11,7 @@ public interface UserDAO {
 	
 	public Long countUser();
 	
-	public List<User> getUserById(String email);
+	public List<User> getUserByUserName(String userName);
 
 	public void removeUser(int id);
 

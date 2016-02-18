@@ -69,14 +69,14 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	@Transactional
-	public List<User> getUserById(String email) {
+	public List<User> getUserByUserName(String userName) {
 		Query q = null;
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			String hql = "FROM User WHERE email = :email";
+			String hql = "FROM User WHERE user_name = :userName";
 
-			if (email != null) {
-				q = session.createQuery(hql).setString("email", email);
+			if (userName != null) {
+				q = session.createQuery(hql).setString("userName", userName);
 			}
 		} catch (HibernateException e) {
 			e.printStackTrace();

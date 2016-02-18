@@ -8,7 +8,9 @@ public class Response {
 
 	private String description;
 
-	private List<User> usersList;
+	private List<User> data;
+
+	private UserError error;
 
 	public String getStatus() {
 		return status;
@@ -26,12 +28,19 @@ public class Response {
 		this.description = description;
 	}
 
-	public List<User> getProductList() {
-		return usersList;
+	public List<User> getData() {
+		return data;
 	}
 
-	public void setProductList(List<User> usersList) {
-		this.usersList = usersList;
+	public void setData(List<User> data) {
+		this.data = data;
 	}
 
+	public UserError getError() {
+		return error;
+	}
+
+	public void setError(UserError err) {
+		this.error = err;
+	}
 }
