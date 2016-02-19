@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * RESTful Client controller, fetches Product info from the microservice via
+ * {@link userDao}.
+ * 
+ * @author Sandip Bastapure
+ */
 @RestController
 @RequestMapping("/user")
 public class UsersController {
@@ -25,6 +31,12 @@ public class UsersController {
 		logger.info("UserRepository says system has " + userDao.countUser() + " users");
 	}
 
+	/**
+	 * This method is used to add User with .
+	 * 
+	 * @param args
+	 * 		Product : userName, userType 
+	 */
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	private Response addUser(@RequestBody User user) {
 		String userName = user.getUserName();
@@ -67,6 +79,12 @@ public class UsersController {
 		return res;
 	}
 
+	/**
+	 * This method is used to get list of all the Users .
+	 * 
+	 * @param args
+	 * 		NA
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	private Response list() {
 		Response res = new Response();
@@ -82,11 +100,17 @@ public class UsersController {
 		return res;
 	}
 
-	private boolean validateUserName(String username) {
+	/**
+	 * Validates user exits in the system or not .
+	 * 
+	 * @param args
+	 * 		String username
+	 */
+	private boolean validateUserName(String userName) {
 		List<User> userData = null;
 		try {
-			System.out.println(username);
-			userData = userDao.getUserByUserName(username);
+			System.out.println(userName);
+			userData = userDao.getUserByUserName(userName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

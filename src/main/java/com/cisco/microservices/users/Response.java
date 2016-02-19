@@ -2,6 +2,11 @@ package com.cisco.microservices.users;
 
 import java.util.List;
 
+/**
+ * Response to the REST API's request with its attributes  
+ * 
+ * @author Sandip Bastapure
+ */
 public class Response {
 
 	private String status;

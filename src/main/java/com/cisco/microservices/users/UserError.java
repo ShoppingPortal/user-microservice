@@ -1,5 +1,10 @@
 package com.cisco.microservices.users;
 
+/**
+ * UserError type used to generate custom errors when there is any exceptions in the applications
+ * 
+ * @author Sandip Bastapure
+ */
 public class UserError {
 	private String param;
 	private String msg;

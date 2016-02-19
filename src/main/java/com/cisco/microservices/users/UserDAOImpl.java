@@ -12,9 +12,16 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Here you can perform CRUD operations on User entity.
+ * {@link UserDAO}.
+ * 
+ * @author Sandip Bastapure
+ */
 @Repository
 @EnableTransactionManagement
 public class UserDAOImpl implements UserDAO {

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Persistent user entity with JPA markup. Users are stored in an H2 relational
+ * Persistent user entity with JPA markup. Users are stored in an MySQL relational
  * database.
  * 
  * @author Sandip Bastapure
