@@ -35,7 +35,7 @@ public class UsersController {
 	 * This method is used to add User with .
 	 * 
 	 * @param args
-	 * 		Product : userName, userType 
+	 *            Product : userName, userType
 	 */
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	private Response addUser(@RequestBody User user) {
@@ -43,8 +43,16 @@ public class UsersController {
 		List<User> userList = new ArrayList<User>();
 		Response res = new Response();
 		logger.info("User's addUser() invoked for :" + userName);
-
-		if (validateUserName(userName)) {
+		if (userName == "") {
+			res.setStatus("400");
+			res.setDescription("Invalid Username!");
+			UserError err = new UserError();
+			err.setMsg("Username can not be blank!");
+			err.setParam("Username");
+			err.setValue(userName);
+			res.setError(err);
+			logger.info("Username can not be blank!");
+		} else if (validateUserName(userName)) {
 			res.setStatus("400");
 			res.setDescription("User already exist!");
 			UserError err = new UserError();
@@ -53,6 +61,7 @@ public class UsersController {
 			err.setValue(userName);
 			res.setError(err);
 			System.out.println("User already exist");
+			logger.info("User already exist!");
 		} else {
 
 			try {
@@ -66,6 +75,7 @@ public class UsersController {
 				res.setStatus("200");
 				res.setDescription("User added successfully!");
 				res.setData(userList);
+				logger.info("User added successfully");
 			} catch (ConstraintViolationException e) {
 				res.setStatus("400");
 				res.setDescription("Server error!");
@@ -74,6 +84,7 @@ public class UsersController {
 				err.setParam("Username");
 				err.setValue(userName);
 				res.setError(err);
+				logger.info("Something went wrong");
 			}
 		}
 		return res;
@@ -83,13 +94,15 @@ public class UsersController {
 	 * This method is used to get list of all the Users .
 	 * 
 	 * @param args
-	 * 		NA
+	 *            NA
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	private Response list() {
+		logger.info("get list of all Users");
 		Response res = new Response();
 		List<User> userList = userDao.listUser();
 		if (userList.size() <= 0) {
+			logger.info("there are no users added yet");
 			res.setStatus("200");
 			res.setDescription("OOPs! it seems there are no users added yet!");
 		} else {
@@ -104,7 +117,7 @@ public class UsersController {
 	 * Validates user exits in the system or not .
 	 * 
 	 * @param args
-	 * 		String username
+	 *            String username
 	 */
 	private boolean validateUserName(String userName) {
 		List<User> userData = null;
