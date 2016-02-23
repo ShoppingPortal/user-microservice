@@ -5,15 +5,15 @@ import java.util.List;
 public interface UserDAO {
 	public long addUser(User p);
 
-	public void updateUser(User p);
+	public boolean updateUser(User p);
 
 	public List<User> listUser();
 	
 	public Long countUser();
 	
-	public List<User> getUserByUserName(String userName);
+	public Object getUserByUserName(String userName);
 
-	public void removeUser(int id);
+	public boolean removeUser(long id);
 
 }
 

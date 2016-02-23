@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Sandip Bastapure
  */
 @Repository
+@Transactional
 @EnableTransactionManagement
 public class UserDAOImpl implements UserDAO {
 
@@ -49,10 +50,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void updateUser(User p) {
+	public boolean updateUser(User p) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(p);
 		logger.info("User updated successfully, User Details=" + p);
+		return true;
 	}
 
 	@Override
@@ -76,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	@Transactional
-	public List<User> getUserByUserName(String userName) {
+	public Object getUserByUserName(String userName) {
 		Query q = null;
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
@@ -88,19 +90,19 @@ public class UserDAOImpl implements UserDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
-		ArrayList<User> al = new ArrayList<User>();
-		al.addAll(q.list());
-		return al;
+		
+		return q.list().get(0);
 	}
 
 	@Override
-	public void removeUser(int id) {
+	public boolean removeUser(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User p = (User) session.load(User.class, new Integer(id));
+		User p = (User) session.load(User.class, id);
 		if (null != p) {
 			session.delete(p);
 		}
 		logger.info("User deleted successfully, User details=" + p);
+		return true;
 	}
 
 }

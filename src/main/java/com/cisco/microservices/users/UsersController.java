@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -113,6 +115,30 @@ public class UsersController {
 		return res;
 	}
 
+	@RequestMapping(value = "/delete/{username}", method = RequestMethod.DELETE)
+	public Response delete(@PathVariable("username") String username) {
+		Response res = null;
+		try {
+			res = new Response();
+			User user =  (User) userDao.getUserByUserName(username);
+			boolean wasOk = userDao.removeUser(user.getId()); 
+			if (wasOk) {
+				res.setStatus("200");
+				res.setDescription("User deleted");
+			}else{
+				res.setStatus("400");
+				res.setDescription("Delete Unsucessful");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.info(e.getMessage());
+			res.setStatus("400");
+			res.setDescription("Delete Unsucessful");
+		}
+	    
+	    return res;
+	}
+	
 	/**
 	 * Validates user exits in the system or not .
 	 * 
@@ -120,14 +146,14 @@ public class UsersController {
 	 *            String username
 	 */
 	private boolean validateUserName(String userName) {
-		List<User> userData = null;
+		Object userData = null;
 		try {
 			System.out.println(userName);
 			userData = userDao.getUserByUserName(userName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (userData.size() <= 0) {
+		if (userData == null) {
 			return false;
 		} else {
 			return true;
