@@ -47,23 +47,23 @@ public class UsersController {
 		logger.info("User's addUser() invoked for :" + userName);
 		if (userName == "") {
 			res.setStatus("400");
-			res.setDescription("Invalid Username!");
+			res.setDescription("Invalid Username");
 			UserError err = new UserError();
-			err.setMsg("Username can not be blank!");
+			err.setMsg("Username can not be blank");
 			err.setParam("Username");
 			err.setValue(userName);
 			res.setError(err);
-			logger.info("Username can not be blank!");
+			logger.info("Username can not be blank");
 		} else if (validateUserName(userName)) {
 			res.setStatus("400");
-			res.setDescription("User already exist!");
+			res.setDescription("User already exist");
 			UserError err = new UserError();
 			err.setMsg("User already exist");
 			err.setParam("Username");
 			err.setValue(userName);
 			res.setError(err);
 			System.out.println("User already exist");
-			logger.info("User already exist!");
+			logger.info("User already exist");
 		} else {
 
 			try {
@@ -71,16 +71,16 @@ public class UsersController {
 				u.setUserName(userName);
 				u.setUserType(user.getUserType());
 				userDao.addUser(u);
-				logger.info("User added!");
+				logger.info("User added");
 				userList.add(u);
 
 				res.setStatus("200");
-				res.setDescription("User added successfully!");
+				res.setDescription("User added successfully");
 				res.setData(userList);
 				logger.info("User added successfully");
-			} catch (ConstraintViolationException e) {
-				res.setStatus("400");
-				res.setDescription("Server error!");
+			} catch (Exception e) {
+				res.setStatus("500");
+				res.setDescription("Internal Server error");
 				UserError err = new UserError();
 				err.setMsg("Something went wrong");
 				err.setParam("Username");
@@ -105,8 +105,8 @@ public class UsersController {
 		List<User> userList = userDao.listUser();
 		if (userList.size() <= 0) {
 			logger.info("there are no users added yet");
-			res.setStatus("200");
-			res.setDescription("OOPs! it seems there are no users added yet!");
+			res.setStatus("404");
+			res.setDescription("No users found");
 		} else {
 			res.setStatus("200");
 			res.setDescription("This is the user's list");
@@ -121,19 +121,24 @@ public class UsersController {
 		try {
 			res = new Response();
 			User user =  (User) userDao.getUserByUserName(username);
+			if(user==null){
+				res.setStatus("404");
+				res.setDescription("Record Not Found");
+				return res;
+			}
 			boolean wasOk = userDao.removeUser(user.getId()); 
 			if (wasOk) {
 				res.setStatus("200");
 				res.setDescription("User deleted");
 			}else{
-				res.setStatus("400");
-				res.setDescription("Delete Unsucessful");
+				res.setStatus("500");
+				res.setDescription("Internal server error");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
-			res.setStatus("400");
-			res.setDescription("Delete Unsucessful");
+			res.setStatus("500");
+			res.setDescription("Internal server error");
 		}
 	    
 	    return res;

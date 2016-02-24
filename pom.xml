@@ -43,10 +43,10 @@
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
 	
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-consul-all</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -161,5 +161,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 </project>

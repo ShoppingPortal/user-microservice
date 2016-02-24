@@ -90,7 +90,7 @@ public class UsersControllerTest {
 				.andExpect(jsonPath("$.status", is("200")))
 				.andExpect(
 						jsonPath("$.description",
-								is("User added successfully!")));
+								is("User added successfully")));
 
 	}
 
@@ -126,7 +126,7 @@ public class UsersControllerTest {
 				.andExpect(jsonPath("$.status", is("200")))
 				.andExpect(
 						jsonPath("$.description",
-								is("User added successfully!")));
+								is("User added successfully")));
 
 	}
 
@@ -149,7 +149,7 @@ public class UsersControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.status", is("400")))
-				.andExpect(jsonPath("$.description", is("User already exist!")));
+				.andExpect(jsonPath("$.description", is("User already exist")));
 
 	}
 
@@ -181,7 +181,7 @@ public class UsersControllerTest {
 		mockMvc.perform(
 				delete("/user/delete/mockusernotpresent").contentType(
 						MediaType.ALL)).andExpect(status().isOk())
-				.andExpect(jsonPath("$.status", is("400")));
+				.andExpect(jsonPath("$.status", is("500")));
 
 	}
 
