@@ -7,7 +7,7 @@ public interface UserDAO {
 
 	public boolean updateUser(User p);
 
-	public List<User> listUser();
+	public List<User> listUser(String userType);
 	
 	public Long countUser();
 	

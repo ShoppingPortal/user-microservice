@@ -59,9 +59,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public List<User> listUser() {
+	public List<User> listUser(String userType) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<User> UserList = session.createQuery("FROM User U").list();
+		String hql = "FROM User U";
+		if(userType != null) {
+			hql += " where U.userType='" + userType + "'";
+		}
+		List<User> UserList = session.createQuery(hql).list();
 		for (User p : UserList) {
 			logger.info("User List::" + p);
 		}
