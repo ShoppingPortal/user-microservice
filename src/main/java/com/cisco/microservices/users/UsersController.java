@@ -164,5 +164,37 @@ public class UsersController {
 			return true;
 		}
 	}
+	
+	/*
+	 * 
+	 * This method is used to get particular User based on id.
+	 * 
+	 *  @param args
+	 *  			long userId
+	 *  
+	 */
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public Response getUserById(@PathVariable("id") long userId){
+		Response res = null;
+		User user = null;
+		try {
+			res = new Response();
+			user = (User) userDao.getUserById(userId);
+			if (user == null) {
+				res.setStatus("404");
+				res.setDescription("Record Not Found");
+				res.setData(user);
+				return res;
+			}else{
+				res.setStatus("200");
+				res.setDescription("User Found");
+				res.setData(user);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 }
