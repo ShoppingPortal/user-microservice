@@ -180,19 +180,22 @@ public class UsersController {
 		try {
 			res = new Response();
 			user = (User) userDao.getUserById(userId);
-			if (user == null) {
+			if (user == null) {				
 				res.setStatus("404");
-				res.setDescription("Record Not Found");
+				res.setDescription("User Not Found");
 				res.setData(user);
+				logger.info("User does not exists");
 				return res;
-			}else{
+			}else{				
 				res.setStatus("200");
 				res.setDescription("User Found");
 				res.setData(user);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			// TODO: handle exception			
+			logger.info(e.getMessage());
+			res.setStatus("500");
+			res.setDescription("Internal server error");
 		}
 		return res;
 	}

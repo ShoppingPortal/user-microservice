@@ -120,7 +120,7 @@ public class UserDAOImpl implements UserDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
+		logger.info("User Details=" + user);
 		return user;
 	}
 
