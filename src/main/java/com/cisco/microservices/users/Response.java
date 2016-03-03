@@ -13,7 +13,7 @@ public class Response {
 
 	private String description;
 
-	private List<User> data;
+	private Object data;
 
 	private UserError error;
 
@@ -33,11 +33,11 @@ public class Response {
 		this.description = description;
 	}
 
-	public List<User> getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(List<User> data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 

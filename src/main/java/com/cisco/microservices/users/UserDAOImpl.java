@@ -108,5 +108,24 @@ public class UserDAOImpl implements UserDAO {
 		logger.info("User deleted successfully, User details=" + p);
 		return true;
 	}
+	
+	@Override
+	public User getUserById(long id) {
+		// TODO Auto-generated method stub
+		Session session = null;
+		User user = null;
+		try {
+			session = this.sessionFactory.getCurrentSession();
+			user = (User) session.get(User.class, id);			
+		} catch (HibernateException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		logger.info("User Details=" + user);
+		return user;
+	}
 
 }

@@ -14,6 +14,8 @@ public interface UserDAO {
 	public Object getUserByUserName(String userName);
 
 	public boolean removeUser(long id);
+	
+	public User getUserById(long id);
 
 }
 
