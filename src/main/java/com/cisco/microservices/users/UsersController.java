@@ -7,10 +7,12 @@ import java.util.logging.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -99,10 +101,14 @@ public class UsersController {
 	 *            NA
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	private Response list() {
+	private Response list(@RequestParam(value="type", required=false) String userType) {
 		logger.info("get list of all Users");
 		Response res = new Response();
-		List<User> userList = userDao.listUser();
+
+		if (StringUtils.isEmpty(userType)) {
+			  userType = null;
+		}
+		List<User> userList = userDao.listUser(userType);
 		if (userList.size() <= 0) {
 			logger.info("there are no users added yet");
 			res.setStatus("404");
